@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/schedules")
 public class ScheduleController {
@@ -21,5 +23,12 @@ public class ScheduleController {
     public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto requestDto){
         ScheduleResponseDto savedSchedule = scheduleService.saveSchedule(requestDto);
         return new ResponseEntity<>(savedSchedule,HttpStatus.CREATED);
+    }
+
+    // 전체 일정 조회
+    @GetMapping
+    public ResponseEntity<List<ScheduleResponseDto>> findAllSchedules(){
+        List<ScheduleResponseDto> schedules = scheduleService.findAllSchedules();
+        return new ResponseEntity<>(schedules, HttpStatus.OK);
     }
 }
