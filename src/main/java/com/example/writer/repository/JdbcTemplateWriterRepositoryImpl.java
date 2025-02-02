@@ -1,6 +1,5 @@
 package com.example.writer.repository;
 
-import com.example.schedule.entity.Schedule;
 import com.example.writer.dto.WriterResponseDto;
 import com.example.writer.entity.Writer;
 import org.springframework.http.HttpStatus;
@@ -51,19 +50,23 @@ public class JdbcTemplateWriterRepositoryImpl implements WriterRepository{
     }
 
     @Override
-    public Writer findWriterByIdOrElseThrow(Long id) {
-        List<Writer> result = jdbcTemplate.query("select * from writers where id = ?", writerRowMapper(), id);
+    public List<WriterResponseDto> findAllWriters() {
+        return jdbcTemplate.query("select id, name, created_at, updated_at from writers", writerRowMapper());
+    }
+
+    @Override
+    public WriterResponseDto findWriterByIdOrElseThrow(Long id) {
+        List<WriterResponseDto> result = jdbcTemplate.query("select id, name, created_at, updated_at from writers where id = ?", writerRowMapper(), id);
         return result.stream().findAny().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"작성자가 존재하지 않습니다."));
     }
 
-    private RowMapper<Writer> writerRowMapper() {
-        return new RowMapper<Writer>() {
+    private RowMapper<WriterResponseDto> writerRowMapper() {
+        return new RowMapper<WriterResponseDto>() {
             @Override
-            public Writer mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return new Writer(
+            public WriterResponseDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new WriterResponseDto(
                         rs.getLong("id"),
                         rs.getString("name"),
-                        rs.getString("email"),
                         rs.getTimestamp("created_at"),
                         rs.getTimestamp("updated_at")
                 );

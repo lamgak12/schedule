@@ -11,14 +11,12 @@ import java.sql.Timestamp;
 public class WriterResponseDto {
     private Long id;
     private String name;
-    private String email;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
     public WriterResponseDto(Writer writer) {
         this.id = writer.getId();
         this.name = writer.getName();
-        this.email = writer.getEmail();
         this.createdAt = writer.getCreatedAt();
         this.updatedAt = writer.getUpdatedAt();
     }

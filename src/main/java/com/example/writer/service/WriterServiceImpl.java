@@ -9,6 +9,8 @@ import com.example.writer.repository.WriterRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class WriterServiceImpl implements WriterService{
     private final WriterRepository writerRepository;
@@ -17,7 +19,6 @@ public class WriterServiceImpl implements WriterService{
         this.writerRepository = writerRepository;
     }
 
-    @Transactional
     @Override
     public WriterResponseDto saveWriter(WriterRequestDto requestDto) {
         Writer writer = new Writer(requestDto.getName(), requestDto.getEmail());
@@ -25,8 +26,12 @@ public class WriterServiceImpl implements WriterService{
     }
 
     @Override
+    public List<WriterResponseDto> findAllWriters() {
+        return writerRepository.findAllWriters();
+    }
+
+    @Override
     public WriterResponseDto findWriterById(Long id) {
-        Writer writer = writerRepository.findWriterByIdOrElseThrow(id);
-        return new WriterResponseDto(writer);
+        return writerRepository.findWriterByIdOrElseThrow(id);
     }
 }
