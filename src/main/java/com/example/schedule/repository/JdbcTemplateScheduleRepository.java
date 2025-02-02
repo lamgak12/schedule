@@ -4,7 +4,6 @@ import com.example.schedule.dto.ScheduleResponseDto;
 import com.example.schedule.entity.Schedule;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -56,17 +55,21 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
 
     @Override
     public List<ScheduleResponseDto> findAllSchedules() {
-        return jdbcTemplate.query("select * from schedules",scheduleRowMapper());
+        return jdbcTemplate.query("select * from schedules", scheduleRowMapperV1());
     }
 
     @Override
-    public ScheduleResponseDto findScheduleByIdOrElseThrow(Long id) {
-        List<ScheduleResponseDto> result = jdbcTemplate.query(
-                "select * from schedules_test where id = ?", scheduleRowMapper(), id);
+    public Schedule findScheduleByIdOrElseThrow(Long id) {
+        List<Schedule> result = jdbcTemplate.query("select * from schedules where id = ?", scheduleRowMapperV2(), id);
         return result.stream().findAny().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    private RowMapper<ScheduleResponseDto> scheduleRowMapper() {
+    @Override
+    public int updateSchedule(Long id, String writer, String contents) {
+        return jdbcTemplate.update("update schedules set contents = ?, writer = ? where id = ?",contents, writer, id);
+    }
+
+    private RowMapper<ScheduleResponseDto> scheduleRowMapperV1() {
         return new RowMapper<ScheduleResponseDto>() {
             @Override
             public ScheduleResponseDto mapRow(ResultSet rs, int rowNum) throws SQLException {

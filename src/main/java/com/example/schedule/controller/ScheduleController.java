@@ -21,21 +21,30 @@ public class ScheduleController {
     // 일정 생성
     @PostMapping
     public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto requestDto){
-        ScheduleResponseDto savedSchedule = scheduleService.saveSchedule(requestDto);
-        return new ResponseEntity<>(savedSchedule,HttpStatus.CREATED);
+        ScheduleResponseDto responseDto = scheduleService.saveSchedule(requestDto);
+        return new ResponseEntity<>(responseDto,HttpStatus.CREATED);
     }
 
     // 전체 일정 조회
     @GetMapping
     public ResponseEntity<List<ScheduleResponseDto>> findAllSchedules(){
-        List<ScheduleResponseDto> schedules = scheduleService.findAllSchedules();
-        return new ResponseEntity<>(schedules, HttpStatus.OK);
+        List<ScheduleResponseDto> responseDtos = scheduleService.findAllSchedules();
+        return new ResponseEntity<>(responseDtos, HttpStatus.OK);
     }
 
     // 단일 일정 조회(id)
     @GetMapping("/{id}")
     public ResponseEntity<ScheduleResponseDto> findScheduleById(@PathVariable Long id){
         ScheduleResponseDto responseDto = scheduleService.findScheduleById(id);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    // 일정 수정(id)
+    @PatchMapping("/{id}")
+    public ResponseEntity<ScheduleResponseDto> updateSchedule(
+            @PathVariable Long id,
+            @RequestBody ScheduleRequestDto requestDto) {  // password, name, contents는 @RequestBody로 받음
+        ScheduleResponseDto responseDto = scheduleService.updateSchedule(id, requestDto.getPassword(), requestDto.getWriter(), requestDto.getContents());
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }
