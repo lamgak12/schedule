@@ -6,3 +6,4 @@ CREATE TABLE schedules (
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '게시글 수정일',
     contents TEXT NOT NULL COMMENT '할 일 내용'
 ) COMMENT='일정 관리 테이블';
+alter table schedules rename column name to writer;
