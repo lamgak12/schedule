@@ -44,7 +44,7 @@ public class ScheduleController {
     public ResponseEntity<ScheduleResponseDto> updateSchedule(
             @PathVariable Long id,
             @RequestBody ScheduleRequestDto requestDto) {  // password, name, contents는 @RequestBody로 받음
-        ScheduleResponseDto responseDto = scheduleService.updateSchedule(id, requestDto.getPassword(), requestDto.getWriter(), requestDto.getContents());
+        ScheduleResponseDto responseDto = scheduleService.updateSchedule(id, requestDto.getPassword(), requestDto.getWriter_id(), requestDto.getContents());
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 

@@ -35,7 +35,8 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("writer", schedule.getWriter());
+        //parameters.put("writer", schedule.getWriter_id());
+        parameters.put("writer_id", schedule.getWriter_id());
         parameters.put("password", schedule.getPassword());
         parameters.put("contents", schedule.getContents());
         parameters.put("created_at", now);  // 현재 시간으로 명시적 설정
@@ -44,7 +45,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
         Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
         Schedule savedSchedule = new Schedule(
                 key.longValue(),
-                schedule.getWriter(),
+                schedule.getWriter_id(),
                 schedule.getPassword(),
                 schedule.getContents(),
                 schedule.getCreatedAt(),
@@ -65,8 +66,8 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     }
 
     @Override
-    public int updateSchedule(Long id, String writer, String contents) {
-        return jdbcTemplate.update("update schedules set contents = ?, writer = ? where id = ?",contents, writer, id);
+    public int updateSchedule(Long id, Long writer_id, String contents) {
+        return jdbcTemplate.update("update schedules set contents = ?, writer = ? where id = ?",contents, writer_id, id);
     }
 
     @Override
@@ -80,7 +81,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
             public ScheduleResponseDto mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new ScheduleResponseDto(
                         rs.getLong("id"),
-                        rs.getString("writer"),
+                        rs.getLong("writer_id"),
                         rs.getString("contents"),
                         rs.getTimestamp("created_at"),
                         rs.getTimestamp("updated_at")
@@ -94,7 +95,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
             public Schedule mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Schedule(
                         rs.getLong("id"),
-                        rs.getString("writer"),
+                        rs.getLong("writer_id"),
                         rs.getString("password"),
                         rs.getString("contents"),
                         rs.getTimestamp("created_at"),
