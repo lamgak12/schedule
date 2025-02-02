@@ -1,5 +1,7 @@
 package com.example.writer.service;
 
+import com.example.schedule.dto.ScheduleResponseDto;
+import com.example.schedule.entity.Schedule;
 import com.example.writer.dto.WriterRequestDto;
 import com.example.writer.dto.WriterResponseDto;
 import com.example.writer.entity.Writer;
@@ -20,5 +22,11 @@ public class WriterServiceImpl implements WriterService{
     public WriterResponseDto saveWriter(WriterRequestDto requestDto) {
         Writer writer = new Writer(requestDto.getName(), requestDto.getEmail());
         return writerRepository.saveWriter(writer);
+    }
+
+    @Override
+    public WriterResponseDto findWriterById(Long id) {
+        Writer writer = writerRepository.findWriterByIdOrElseThrow(id);
+        return new WriterResponseDto(writer);
     }
 }
