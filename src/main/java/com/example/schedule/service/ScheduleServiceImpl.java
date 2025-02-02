@@ -4,7 +4,7 @@ import com.example.schedule.dto.ScheduleRequestDto;
 import com.example.schedule.dto.ScheduleResponseDto;
 import com.example.schedule.entity.Schedule;
 import com.example.schedule.repository.ScheduleRepository;
-import com.example.writer.entity.Writer;
+import com.example.writer.dto.WriterResponseDto;
 import com.example.writer.repository.WriterRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public ScheduleResponseDto saveSchedule(ScheduleRequestDto requestDto) {
         // 1. 작성자가 존재하는지 확인 (예외 발생)
-        Writer writer = writerRepository.findWriterByIdOrElseThrow(requestDto.getWriter_id());
+        WriterResponseDto writer = writerRepository.findWriterByIdOrElseThrow(requestDto.getWriter_id());
         Schedule schedule = new Schedule(writer.getId(), requestDto.getPassword(), requestDto.getContents());
         return scheduleRepository.saveSchedule(schedule);
     }
