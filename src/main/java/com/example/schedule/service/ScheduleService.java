@@ -11,6 +11,5 @@ public interface ScheduleService {
     ScheduleResponseDto findScheduleById(Long id); // id로 스케쥴 확인
     // 작성자, 내용 수정
     ScheduleResponseDto updateSchedule(Long id, String password, String writer, String contents);
-
-
+    void deleteSchedule(Long id, String password); // id로 스케쥴 삭제
 }

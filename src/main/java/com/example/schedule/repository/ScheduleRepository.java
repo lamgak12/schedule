@@ -10,4 +10,6 @@ public interface ScheduleRepository {
     List<ScheduleResponseDto> findAllSchedules(); // 전체 스케쥴 조회
     Schedule findScheduleByIdOrElseThrow(Long id); //id로 스케쥴 확인
     int updateSchedule(Long id, String writer, String contents);  // 작성자, 내용 수정
+
+    int deleteSchedule(Long id);  // id로 스케쥴 삭제
 }

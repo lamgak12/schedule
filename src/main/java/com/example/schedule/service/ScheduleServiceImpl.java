@@ -54,6 +54,22 @@ public class ScheduleServiceImpl implements ScheduleService {
         Schedule updatedSchedule = scheduleRepository.findScheduleByIdOrElseThrow(id);
         return new ScheduleResponseDto(updatedSchedule);
     }
+
+    @Override
+    public void deleteSchedule(Long id, String password) {
+        // 1. 비밀번호 확인
+        boolean isPasswordCorrect = checkPassword(id, password);
+        if (!isPasswordCorrect) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다.");
+        }
+
+        // 2. 일정 삭제
+        int deletedRows = scheduleRepository.deleteSchedule(id);
+        if (deletedRows == 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "일정을 찾을 수 없습니다.");
+        }
+    }
+
     private boolean checkPassword(Long id, String password) {
         // 1. 주어진 id로 Schedule 조회
         Schedule existingSchedule = scheduleRepository.findScheduleByIdOrElseThrow(id);
