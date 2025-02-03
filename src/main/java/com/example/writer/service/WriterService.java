@@ -11,4 +11,5 @@ public interface WriterService {
     WriterResponseDto saveWriter(WriterRequestDto requestDto); // 작성자 생성
     List<WriterResponseDto> findAllWriters();  // 전체 작성자 조회
     WriterResponseDto findWriterById(Long id); // id로 스케쥴 확인
+    WriterResponseDto updateName(Long id, String name);
 }

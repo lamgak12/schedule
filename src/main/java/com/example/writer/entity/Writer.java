@@ -17,7 +17,7 @@ public class Writer {
     public Writer(String name, String email) {
         this.name = name;
         this.email = email;
-        this.createdAt = new Timestamp(System.currentTimeMillis());  // createdAt 초기화
-        this.updatedAt = new Timestamp(System.currentTimeMillis());  // updatedAt 초기화
+        this.createdAt = new Timestamp(System.currentTimeMillis());
+        this.updatedAt = new Timestamp(System.currentTimeMillis());
     }
 }

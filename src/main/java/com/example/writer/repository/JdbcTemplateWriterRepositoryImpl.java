@@ -60,6 +60,11 @@ public class JdbcTemplateWriterRepositoryImpl implements WriterRepository{
         return result.stream().findAny().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"작성자가 존재하지 않습니다."));
     }
 
+    @Override
+    public int updateName(Long id, String name) {
+        return jdbcTemplate.update("update writers set name = ? where id = ?", name, id);
+    }
+
     private RowMapper<WriterResponseDto> writerRowMapper() {
         return new RowMapper<WriterResponseDto>() {
             @Override
