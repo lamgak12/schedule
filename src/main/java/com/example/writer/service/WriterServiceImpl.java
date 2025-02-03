@@ -34,17 +34,21 @@ public class WriterServiceImpl implements WriterService{
 
     @Override
     public WriterResponseDto updateName(Long id, String name) {
-        // 1. 작성자 조회
-        if(name == null){
+        // 1. 작성자 존재 여부 확인
+        writerRepository.findWriterByIdOrElseThrow(id);
+
+        // 2. 작성자 이름 검증
+        if (name == null || name.trim().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이름은 필수 입력 값입니다.");
         }
 
-        // 2. 작성자 업데이트
+        // 3. 작성자 업데이트
         int updatedRows = writerRepository.updateName(id, name);
         if (updatedRows == 0) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "일정을 찾을 수 없습니다.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "작성자를 찾을 수 없습니다.");
         }
 
+        // 4. 업데이트된 작성자 정보 반환
         return writerRepository.findWriterByIdOrElseThrow(id);
     }
 }
