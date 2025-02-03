@@ -17,7 +17,6 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 @Repository
 public class JdbcTemplateScheduleRepository implements ScheduleRepository{
 
@@ -66,8 +65,8 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     }
 
     @Override
-    public int updateSchedule(Long id, Long writer_id, String contents) {
-        return jdbcTemplate.update("update schedules set contents = ?, writer = ? where id = ?",contents, writer_id, id);
+    public int updateSchedule(Long id, String contents) {
+        return jdbcTemplate.update("update schedules set contents = ? where id = ?", contents, id);
     }
 
     @Override
