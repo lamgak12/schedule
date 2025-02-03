@@ -65,6 +65,11 @@ public class JdbcTemplateWriterRepositoryImpl implements WriterRepository{
         return jdbcTemplate.update("update writers set name = ? where id = ?", name, id);
     }
 
+    @Override
+    public int deleteWriter(Long id) {
+        return jdbcTemplate.update("delete from writers where id = ?", id);
+    }
+
     private RowMapper<WriterResponseDto> writerRowMapperV1() { // 이름이 좀더 직관적이였으면 좋겠다..
         return new RowMapper<WriterResponseDto>() {
             @Override

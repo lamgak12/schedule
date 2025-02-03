@@ -73,4 +73,12 @@ public class WriterServiceImpl implements WriterService{
         // 4. 업데이트된 작성자 정보 반환
         return writerRepository.findWriterByIdOrElseThrow(id);
     }
+
+    @Override
+    public void deleteWriter(Long id) {
+        int deletedRows = writerRepository.deleteWriter(id);
+        if (deletedRows == 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "일정을 찾을 수 없습니다.");
+        }
+    }
 }

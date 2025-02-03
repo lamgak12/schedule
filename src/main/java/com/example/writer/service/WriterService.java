@@ -12,5 +12,6 @@ public interface WriterService {
     WriterResponseDto findWriterByIdOrElseThrow(Long id); // id로 작성자 확인
     WriterWithSchedulesResponseDto findWriterWithSchedulesById(Long id);
     WriterResponseDto updateName(Long id, String name); // 작성자 이름 수정
+    void deleteWriter(Long id);  // id로 작성자 삭제
 
 }

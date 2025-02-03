@@ -12,5 +12,5 @@ public interface WriterRepository {
     List<WriterResponseDto> findAllWriters(); // 전체 작성자 조회
     WriterResponseDto findWriterByIdOrElseThrow(Long id); // id로 작성자 조회
     int updateName(Long id, String name);  // 작성자, 내용 수정
-
+    int deleteWriter(Long id);  // id로 스케쥴 삭제
 }

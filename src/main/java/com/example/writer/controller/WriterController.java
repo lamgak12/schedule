@@ -1,5 +1,6 @@
 package com.example.writer.controller;
 
+import com.example.schedule.dto.ScheduleResponseDto;
 import com.example.writer.dto.WriterRequestDto;
 import com.example.writer.dto.WriterResponseDto;
 import com.example.writer.dto.WriterWithSchedulesResponseDto;
@@ -33,5 +34,12 @@ public class WriterController {
     public ResponseEntity<WriterWithSchedulesResponseDto> findWriterById(@PathVariable Long id){
         WriterWithSchedulesResponseDto responseDto = writerService.findWriterWithSchedulesById(id);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    // 작성자 삭제(id)
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ScheduleResponseDto> deleteSchedule(@PathVariable Long id){
+        writerService.deleteWriter(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
