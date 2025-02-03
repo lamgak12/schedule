@@ -2,6 +2,7 @@ package com.example.writer.controller;
 
 import com.example.writer.dto.WriterRequestDto;
 import com.example.writer.dto.WriterResponseDto;
+import com.example.writer.dto.WriterWithSchedulesResponseDto;
 import com.example.writer.service.WriterService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ public class WriterController {
     // 작성자 생성
     @PostMapping
     public ResponseEntity<WriterResponseDto> createWriter(@RequestBody WriterRequestDto requestDto){
-        return new ResponseEntity<>(writerService.saveWriter(requestDto), HttpStatus.CREATED); // findScheduleById처럼 분리
+        return new ResponseEntity<>(writerService.saveWriter(requestDto), HttpStatus.CREATED); // update + insert = upsert로 동작해야 완전함..
     }
     // 전체 일정 조회
     @GetMapping
@@ -29,8 +30,8 @@ public class WriterController {
 
     // 단일 작성자 조회(id)
     @GetMapping("/{id}")
-    public ResponseEntity<WriterResponseDto> findWriterById(@PathVariable Long id){
-        WriterResponseDto responseDto = writerService.findWriterById(id);
+    public ResponseEntity<WriterWithSchedulesResponseDto> findWriterById(@PathVariable Long id){
+        WriterWithSchedulesResponseDto responseDto = writerService.findWriterWithSchedulesById(id);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }

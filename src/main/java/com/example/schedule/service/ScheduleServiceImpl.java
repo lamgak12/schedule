@@ -1,11 +1,11 @@
 package com.example.schedule.service;
 
 import com.example.schedule.dto.ScheduleCreateRequestDto;
-import com.example.schedule.dto.ScheduleRequestDto;
 import com.example.schedule.dto.ScheduleResponseDto;
 import com.example.schedule.entity.Schedule;
 import com.example.schedule.repository.ScheduleRepository;
 import com.example.writer.dto.WriterResponseDto;
+import com.example.writer.dto.WriterWithSchedulesResponseDto;
 import com.example.writer.repository.WriterRepository;
 import com.example.writer.service.WriterService;
 import lombok.AllArgsConstructor;
@@ -19,14 +19,14 @@ import java.util.List;
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
     private final ScheduleRepository scheduleRepository;
-    private final WriterRepository writerRepository;
     private final WriterService writerService;
 
     @Override
     public ScheduleResponseDto saveSchedule(ScheduleCreateRequestDto requestDto) {
-        WriterResponseDto writer = writerRepository.findWriterByIdOrElseThrow(requestDto.getWriter_id()); // 이부분
+        WriterResponseDto writer = writerService.findWriterByIdOrElseThrow(requestDto.getWriterId());
         Schedule schedule = new Schedule(writer.getId(), requestDto.getPassword(), requestDto.getContents());
-        return scheduleRepository.saveSchedule(schedule);
+        //여기서 dto로 감싸야함..
+        return scheduleRepository.save(schedule);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         writerService.updateName(updatedSchedule.getWriter_id(), writer);
 
         // 4. 일정 업데이트
-        int updatedRows = scheduleRepository.updateSchedule(id, contents);
+        int updatedRows = scheduleRepository.updateContents(id, contents);
         if (updatedRows == 0) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "일정을 찾을 수 없습니다.");
         }

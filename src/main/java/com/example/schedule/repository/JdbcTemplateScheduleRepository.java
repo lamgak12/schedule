@@ -27,14 +27,14 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     }
 
     @Override
-    public ScheduleResponseDto saveSchedule(Schedule schedule) {
+    public ScheduleResponseDto save(Schedule schedule) {
+        //save는 엔티티 자체를 반환하는 것이 관례.. JPA뿐만 아니라 다른 ORM도 마찬가지, 데이터를 사용하는 주체는 서비스로직에서 판단
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
         jdbcInsert.withTableName("schedules").usingGeneratedKeyColumns("id");
 
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
         Map<String, Object> parameters = new HashMap<>();
-        //parameters.put("writer", schedule.getWriter_id());
         parameters.put("writer_id", schedule.getWriter_id());
         parameters.put("password", schedule.getPassword());
         parameters.put("contents", schedule.getContents());
@@ -65,7 +65,13 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     }
 
     @Override
-    public int updateSchedule(Long id, String contents) {
+    public List<ScheduleResponseDto> findSchedulesByWriterId(Long writerId) {
+        String sql = "SELECT * FROM schedules WHERE writer_id = ?";
+        return jdbcTemplate.query(sql, scheduleRowMapperV1(), writerId);
+    }
+
+    @Override
+    public int updateContents(Long id, String contents) {
         return jdbcTemplate.update("update schedules set contents = ? where id = ?", contents, id);
     }
 

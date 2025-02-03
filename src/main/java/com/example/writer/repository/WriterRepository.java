@@ -2,6 +2,7 @@ package com.example.writer.repository;
 
 import com.example.schedule.dto.ScheduleResponseDto;
 import com.example.writer.dto.WriterResponseDto;
+import com.example.writer.dto.WriterWithSchedulesResponseDto;
 import com.example.writer.entity.Writer;
 
 import java.util.List;

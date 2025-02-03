@@ -1,7 +1,10 @@
 package com.example.writer.service;
 
+import com.example.schedule.dto.ScheduleResponseDto;
+import com.example.schedule.repository.ScheduleRepository;
 import com.example.writer.dto.WriterRequestDto;
 import com.example.writer.dto.WriterResponseDto;
+import com.example.writer.dto.WriterWithSchedulesResponseDto;
 import com.example.writer.entity.Writer;
 import com.example.writer.repository.WriterRepository;
 import lombok.AllArgsConstructor;
@@ -15,6 +18,7 @@ import java.util.List;
 @Service
 public class WriterServiceImpl implements WriterService{
     private final WriterRepository writerRepository;
+    private final ScheduleRepository scheduleRepository;
 
     @Override
     public WriterResponseDto saveWriter(WriterRequestDto requestDto) {
@@ -28,7 +32,25 @@ public class WriterServiceImpl implements WriterService{
     }
 
     @Override
-    public WriterResponseDto findWriterById(Long id) {
+    public WriterWithSchedulesResponseDto findWriterWithSchedulesById(Long id) {
+        // 1. 작성자 정보 조회 (엔티티 반환)
+        WriterResponseDto writerDto = writerRepository.findWriterByIdOrElseThrow(id);
+
+        // 2. 해당 작성자가 작성한 일정 리스트 조회
+        List<ScheduleResponseDto> schedules = scheduleRepository.findSchedulesByWriterId(id);
+
+        // 3. 작성자 정보 + 일정 리스트 포함하여 반환
+        return new WriterWithSchedulesResponseDto(
+                writerDto.getId(),
+                writerDto.getName(),
+                writerDto.getCreatedAt(),
+                writerDto.getUpdatedAt(),
+                schedules
+        );
+    }
+
+    @Override
+    public WriterResponseDto findWriterByIdOrElseThrow(Long id) {
         return writerRepository.findWriterByIdOrElseThrow(id);
     }
 

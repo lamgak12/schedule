@@ -51,12 +51,12 @@ public class JdbcTemplateWriterRepositoryImpl implements WriterRepository{
 
     @Override
     public List<WriterResponseDto> findAllWriters() {
-        return jdbcTemplate.query("select id, name, created_at, updated_at from writers", writerRowMapper());
+        return jdbcTemplate.query("select id, name, created_at, updated_at from writers", writerRowMapperV1());
     }
 
     @Override
     public WriterResponseDto findWriterByIdOrElseThrow(Long id) {
-        List<WriterResponseDto> result = jdbcTemplate.query("select id, name, created_at, updated_at from writers where id = ?", writerRowMapper(), id);
+        List<WriterResponseDto> result = jdbcTemplate.query("select id, name, created_at, updated_at from writers where id = ?", writerRowMapperV1(), id);
         return result.stream().findAny().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"작성자가 존재하지 않습니다."));
     }
 
@@ -65,7 +65,7 @@ public class JdbcTemplateWriterRepositoryImpl implements WriterRepository{
         return jdbcTemplate.update("update writers set name = ? where id = ?", name, id);
     }
 
-    private RowMapper<WriterResponseDto> writerRowMapper() {
+    private RowMapper<WriterResponseDto> writerRowMapperV1() { // 이름이 좀더 직관적이였으면 좋겠다..
         return new RowMapper<WriterResponseDto>() {
             @Override
             public WriterResponseDto mapRow(ResultSet rs, int rowNum) throws SQLException {
