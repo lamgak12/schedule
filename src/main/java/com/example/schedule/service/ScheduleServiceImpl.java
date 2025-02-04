@@ -1,5 +1,6 @@
 package com.example.schedule.service;
 
+import com.example.schedule.dto.PageResponseDto;
 import com.example.schedule.dto.ScheduleCreateRequestDto;
 import com.example.schedule.dto.ScheduleResponseDto;
 import com.example.schedule.entity.Schedule;
@@ -30,8 +31,12 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public List<ScheduleResponseDto> findAllSchedules() {
-        return scheduleRepository.findAllSchedules();
+    public PageResponseDto findAllSchedules(int page, int size) {
+        int offset = page * size;
+        List<ScheduleResponseDto> schedules = scheduleRepository.findAllSchedules(size, offset);
+        long totalElements = scheduleRepository.countSchedules();
+
+        return new PageResponseDto(schedules, page, size, totalElements);
     }
 
     @Override

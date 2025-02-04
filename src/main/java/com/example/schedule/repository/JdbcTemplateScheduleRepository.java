@@ -54,8 +54,15 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     }
 
     @Override
-    public List<ScheduleResponseDto> findAllSchedules() {
-        return jdbcTemplate.query("select * from schedules", scheduleRowMapperV1());
+    public List<ScheduleResponseDto> findAllSchedules(int size, int offset) {
+        String sql = "select * from schedules order by created_at desc limit ? offset ?";
+        return jdbcTemplate.query(sql, new Object[]{size, offset}, scheduleRowMapperV1());
+    }
+
+    @Override
+    public long countSchedules() {
+        String sql = "select count(*) from schedules";
+        return jdbcTemplate.queryForObject(sql, Long.class);
     }
 
     @Override

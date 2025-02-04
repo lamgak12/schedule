@@ -1,5 +1,6 @@
 package com.example.schedule.controller;
 
+import com.example.schedule.dto.PageResponseDto;
 import com.example.schedule.dto.ScheduleCreateRequestDto;
 import com.example.schedule.dto.ScheduleRequestDto;
 import com.example.schedule.dto.ScheduleResponseDto;
@@ -25,9 +26,11 @@ public class ScheduleController {
 
     // 전체 일정 조회
     @GetMapping
-    public ResponseEntity<List<ScheduleResponseDto>> findAllSchedules(){
-        List<ScheduleResponseDto> responseDtos = scheduleService.findAllSchedules();
-        return new ResponseEntity<>(responseDtos, HttpStatus.OK);
+    public ResponseEntity<PageResponseDto> findAllSchedules(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size){
+        PageResponseDto response = scheduleService.findAllSchedules(page, size);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     // 단일 일정 조회(id)

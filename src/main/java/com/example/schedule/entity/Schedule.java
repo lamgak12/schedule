@@ -2,7 +2,6 @@ package com.example.schedule.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.validation.annotation.Validated;
 
 import java.sql.Timestamp;
 
