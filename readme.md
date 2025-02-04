@@ -150,7 +150,6 @@ DATA_BASE_URL=${your DB_URL}
 DATA_BASE_USER_NAME=${your DB_ID}
 DATA_BASE_USER_PASSWORD=${your DB_PASSWORD}
 ```
-<img src="">
 
 ## 구현 결과
 <details>
@@ -222,29 +221,39 @@ DATA_BASE_USER_PASSWORD=${your DB_PASSWORD}
     <summary>작성자 생성</summary>
        <details>
           <summary>성공</summary>
+          <img src="https://github.com/user-attachments/assets/302168ef-8d1d-4cde-9cf0-1e83d7b8a4b9">
       </details>
       <details>
           <summary>실패(400)</summary>
+          <img src="https://github.com/user-attachments/assets/c74f9e0e-a8b9-4b85-9dc3-05f89df8f49b">
+          <img src="https://github.com/user-attachments/assets/95bac47a-2175-45e4-9030-35a63ba5b8dd">
+          <img src="https://github.com/user-attachments/assets/cde2e7bd-bd4a-4d7b-b005-b1d6611d227c">
       </details>
 </details>
 <details>
     <summary>작성자 조회(전체)</summary>
+    <img src="https://github.com/user-attachments/assets/afa66b2f-3ec1-46e9-a1e3-f363f6e0121f">
 </details>
 <details>
     <summary>작성자 조회(단일)</summary>
     <details>
           <summary>성공</summary>
+          <img src="https://github.com/user-attachments/assets/37efff6d-24bc-4ca6-830c-60ab6538376d">
+          <img src="https://github.com/user-attachments/assets/a9762318-5ed1-4257-9765-cfa561a26b97">
       </details>
       <details>
           <summary>실패(404)</summary>
+          <img src="https://github.com/user-attachments/assets/27c53738-7536-4421-af46-27eda2bf0733">
       </details>
 </details>
 <details>
     <summary>작성자 삭제</summary>
     <details>
           <summary>성공</summary>
+          <img src="https://github.com/user-attachments/assets/e03306e0-41ff-4c57-9588-34a000ca7b37">
       </details>
       <details>
           <summary>실패(404)</summary>
+          <img src="https://github.com/user-attachments/assets/29b96420-2fcb-4889-ab3d-162b632bee4f">
       </details>
 </details>
