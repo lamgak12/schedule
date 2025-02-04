@@ -1,7 +1,9 @@
 package com.example.schedule.dto;
 
-import java.util.List;
+import lombok.Getter;
 
+import java.util.List;
+@Getter
 public class PageResponseDto<T> {
     private List<T> content;
     private int currentPage;
@@ -15,25 +17,5 @@ public class PageResponseDto<T> {
         this.pageSize = pageSize;
         this.totalElements = totalElements;
         this.totalPages = (int) Math.ceil((double) totalElements / pageSize);
-    }
-
-    public List<T> getContent() {
-        return content;
-    }
-
-    public int getCurrentPage() {
-        return currentPage;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public int getTotalPages() {
-        return totalPages;
-    }
-
-    public long getTotalElements() {
-        return totalElements;
     }
 }

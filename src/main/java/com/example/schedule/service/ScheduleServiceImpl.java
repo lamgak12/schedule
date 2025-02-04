@@ -1,5 +1,7 @@
 package com.example.schedule.service;
 
+import com.example.exception.InvalidPasswordException;
+import com.example.exception.ScheduleNotFoundException;
 import com.example.schedule.dto.PageResponseDto;
 import com.example.schedule.dto.ScheduleCreateRequestDto;
 import com.example.schedule.dto.ScheduleResponseDto;
@@ -12,6 +14,7 @@ import com.example.writer.service.WriterService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -22,6 +25,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final WriterService writerService;
 
+    @Transactional
     @Override
     public ScheduleResponseDto saveSchedule(ScheduleCreateRequestDto requestDto) {
         WriterResponseDto writer = writerService.findWriterByIdOrElseThrow(requestDto.getWriterId());
@@ -29,7 +33,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         //여기서 dto로 감싸야함..
         return scheduleRepository.save(schedule);
     }
-
+    @Transactional(readOnly = true)
     @Override
     public PageResponseDto<ScheduleResponseDto> findAllSchedules(int page, int size) {
         int offset = page * size;
@@ -38,20 +42,21 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         return new PageResponseDto<>(schedules, page, size, totalElements);
     }
-
+    @Transactional(readOnly = true)
     @Override
     public ScheduleResponseDto findScheduleById(Long id) {
         Schedule schedule = scheduleRepository.findScheduleByIdOrElseThrow(id);
         return new ScheduleResponseDto(schedule);
     }
-
+    @Transactional
     @Override
     public ScheduleResponseDto updateSchedule(Long id, String password, String writer, String contents) {
         // 1. 일정 조회
         Schedule updatedSchedule = scheduleRepository.findScheduleByIdOrElseThrow(id);
         // 2. 비밀번호 확인
         if (!checkPassword(id, password)) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다.");
+            //throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다.");
+            throw new InvalidPasswordException("비밀번호가 일치하지 않습니다.");
         }
         // 3. 작성자 이름 변경 (MySQL에서 `ON UPDATE CASCADE` 처리)
         writerService.updateName(updatedSchedule.getWriter_id(), writer);
@@ -59,24 +64,27 @@ public class ScheduleServiceImpl implements ScheduleService {
         // 4. 일정 업데이트
         int updatedRows = scheduleRepository.updateContents(id, contents);
         if (updatedRows == 0) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "일정을 찾을 수 없습니다.");
+            //throw new ResponseStatusException(HttpStatus.NOT_FOUND, "일정을 찾을 수 없습니다.");
+            throw new ScheduleNotFoundException("일정을 찾을 수 없습니다.");
         }
 
         // 5. 업데이트된 일정 반환
         return new ScheduleResponseDto(updatedSchedule);
     }
-
+    @Transactional
     @Override
     public void deleteSchedule(Long id, String password) {
         // 1. 비밀번호 확인
         if (!checkPassword(id, password)) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다.");
+            //throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다.");
+            throw new InvalidPasswordException("비밀번호가 일치하지 않습니다.");
         }
 
         // 2. 일정 삭제
         int deletedRows = scheduleRepository.deleteSchedule(id);
         if (deletedRows == 0) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "일정을 찾을 수 없습니다.");
+            //throw new ResponseStatusException(HttpStatus.NOT_FOUND, "일정을 찾을 수 없습니다.");
+            throw new ScheduleNotFoundException("일정을 찾을 수 없습니다.");
         }
     }
 

@@ -22,6 +22,7 @@ public class WriterController {
     public ResponseEntity<WriterResponseDto> createWriter(@RequestBody WriterRequestDto requestDto){
         return new ResponseEntity<>(writerService.saveWriter(requestDto), HttpStatus.CREATED); // update + insert = upsert로 동작해야 완전함..
     }
+
     // 전체 일정 조회
     @GetMapping
     public ResponseEntity<List<WriterResponseDto>> findAllWriters(){

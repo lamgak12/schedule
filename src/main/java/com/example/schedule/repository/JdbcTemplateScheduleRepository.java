@@ -1,5 +1,6 @@
 package com.example.schedule.repository;
 
+import com.example.exception.ScheduleNotFoundException;
 import com.example.schedule.dto.ScheduleResponseDto;
 import com.example.schedule.entity.Schedule;
 import org.springframework.http.HttpStatus;
@@ -68,12 +69,12 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository{
     @Override
     public Schedule findScheduleByIdOrElseThrow(Long id) {
         List<Schedule> result = jdbcTemplate.query("select * from schedules where id = ?", scheduleRowMapperV2(), id);
-        return result.stream().findAny().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return result.stream().findAny().orElseThrow(() -> new ScheduleNotFoundException("일정이 존재하지 않습니다."));
     }
 
     @Override
     public List<ScheduleResponseDto> findSchedulesByWriterId(Long writerId) {
-        String sql = "SELECT * FROM schedules WHERE writer_id = ?";
+        String sql = "select * from schedules where writer_id = ?";
         return jdbcTemplate.query(sql, scheduleRowMapperV1(), writerId);
     }
 

@@ -1,5 +1,6 @@
 package com.example.writer.repository;
 
+import com.example.exception.UserNotFoundException;
 import com.example.writer.dto.WriterResponseDto;
 import com.example.writer.entity.Writer;
 import org.springframework.http.HttpStatus;
@@ -57,7 +58,7 @@ public class JdbcTemplateWriterRepositoryImpl implements WriterRepository{
     @Override
     public WriterResponseDto findWriterByIdOrElseThrow(Long id) {
         List<WriterResponseDto> result = jdbcTemplate.query("select id, name, created_at, updated_at from writers where id = ?", writerRowMapperV1(), id);
-        return result.stream().findAny().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"작성자가 존재하지 않습니다."));
+        return result.stream().findAny().orElseThrow(() -> new UserNotFoundException("작성자가 존재하지 않습니다."));
     }
 
     @Override

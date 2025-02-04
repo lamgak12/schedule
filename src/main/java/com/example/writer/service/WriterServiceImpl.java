@@ -1,5 +1,6 @@
 package com.example.writer.service;
 
+import com.example.exception.UserNotFoundException;
 import com.example.schedule.dto.ScheduleResponseDto;
 import com.example.schedule.repository.ScheduleRepository;
 import com.example.writer.dto.WriterRequestDto;
@@ -10,6 +11,7 @@ import com.example.writer.repository.WriterRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -20,17 +22,20 @@ public class WriterServiceImpl implements WriterService{
     private final WriterRepository writerRepository;
     private final ScheduleRepository scheduleRepository;
 
+    @Transactional
     @Override
     public WriterResponseDto saveWriter(WriterRequestDto requestDto) {
         Writer writer = new Writer(requestDto.getName(), requestDto.getEmail());
         return writerRepository.saveWriter(writer);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<WriterResponseDto> findAllWriters() {
         return writerRepository.findAllWriters();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public WriterWithSchedulesResponseDto findWriterWithSchedulesById(Long id) {
         // 1. 작성자 정보 조회 (엔티티 반환)
@@ -49,11 +54,13 @@ public class WriterServiceImpl implements WriterService{
         );
     }
 
+    @Transactional(readOnly = true)
     @Override
     public WriterResponseDto findWriterByIdOrElseThrow(Long id) {
         return writerRepository.findWriterByIdOrElseThrow(id);
     }
 
+    @Transactional
     @Override
     public WriterResponseDto updateName(Long id, String name) {
         // 1. 작성자 존재 여부 확인
@@ -67,18 +74,21 @@ public class WriterServiceImpl implements WriterService{
         // 3. 작성자 업데이트
         int updatedRows = writerRepository.updateName(id, name);
         if (updatedRows == 0) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "작성자를 찾을 수 없습니다.");
+            //throw new ResponseStatusException(HttpStatus.NOT_FOUND, "작성자를 찾을 수 없습니다.");
+            throw new UserNotFoundException("작성자를 찾을 수 없습니다.");
         }
 
         // 4. 업데이트된 작성자 정보 반환
         return writerRepository.findWriterByIdOrElseThrow(id);
     }
 
+    @Transactional
     @Override
     public void deleteWriter(Long id) {
         int deletedRows = writerRepository.deleteWriter(id);
         if (deletedRows == 0) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "일정을 찾을 수 없습니다.");
+            //throw new ResponseStatusException(HttpStatus.NOT_FOUND, "일정을 찾을 수 없습니다.");
+            throw new UserNotFoundException("작성자를 찾을 수 없습니다.");
         }
     }
 }
