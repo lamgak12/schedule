@@ -89,8 +89,6 @@
 ## ERD 다이어그램
 ![ERD.PNG](images%2FERD.PNG)
 
-[//]: # (## 클래스 다이어그램)
-
 ## 프로젝트 구조
 <details>
     
@@ -153,7 +151,7 @@ DATA_BASE_USER_PASSWORD=${your DB_PASSWORD}
 ```
 ## 구현 결과
 <details>
-    <summary>작성자 생성</summary>
+    <summary>일정 생성</summary>
       <details>
           <summary>성공</summary>
       </details>
@@ -165,26 +163,68 @@ DATA_BASE_USER_PASSWORD=${your DB_PASSWORD}
       </details>
 </details>
 <details>
-    <summary>작성자 조회(전체)</summary>
-</details>
-<details>
-    <summary>작성자 조회(단일)</summary>
-</details>
-<details>
-    <summary>작성자 삭제</summary>
-</details>
-<details>
-    <summary>일정 생성</summary>
-</details>
-<details>
     <summary>일정 조회(전체)</summary>
 </details>
 <details>
     <summary>일정 조회(단일)</summary>
+<details>
+          <summary>성공</summary>
+      </details>
+      <details>
+          <summary>실패(404)</summary>
+      </details>
 </details>
 <details>
     <summary>일정 수정</summary>
+      <details>
+          <summary>성공</summary>
+      </details>
+      <details>
+          <summary>실패(400)</summary>
+      </details>
+      <details>
+          <summary>실패(401)</summary>
+      </details>
 </details>
 <details>
     <summary>일정 삭제</summary>
+    <details>
+          <summary>성공</summary>
+      </details>
+      <details>
+          <summary>실패(401)</summary>
+      </details>
+      <details>
+          <summary>실패(404)</summary>
+      </details>
+</details>
+<details>
+    <summary>작성자 생성</summary>
+       <details>
+          <summary>성공</summary>
+      </details>
+      <details>
+          <summary>실패(400)</summary>
+      </details>
+</details>
+<details>
+    <summary>작성자 조회(전체)</summary>
+</details>
+<details>
+    <summary>작성자 조회(단일)</summary>
+    <details>
+          <summary>성공</summary>
+      </details>
+      <details>
+          <summary>실패(404)</summary>
+      </details>
+</details>
+<details>
+    <summary>작성자 삭제</summary>
+    <details>
+          <summary>성공</summary>
+      </details>
+      <details>
+          <summary>실패(404)</summary>
+      </details>
 </details>
