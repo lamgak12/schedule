@@ -93,7 +93,7 @@
 
 ## 프로젝트 구조
 <details>
-    <summary>프로젝트 구조</summary>
+    
 ```
 schedule
 ├── build.gradle🛠️
@@ -156,6 +156,12 @@ DATA_BASE_USER_PASSWORD=${your DB_PASSWORD}
     <summary>작성자 생성</summary>
       <details>
           <summary>성공</summary>
+      </details>
+      <details>
+          <summary>실패(400)</summary>
+      </details>
+      <details>
+          <summary>실패(404)</summary>
       </details>
 </details>
 <details>
