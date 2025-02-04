@@ -15,6 +15,6 @@ CREATE TABLE schedules (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '게시글 생성일',
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '게시글 수정일',
     contents TEXT NOT NULL COMMENT '할 일 내용',
-    CONSTRAINT fk_writer_id FOREIGN KEY (writer_id) REFERENCES writers(id) ON DELETE CASCADE
+    CONSTRAINT fk_writer_id FOREIGN KEY (writer_id) REFERENCES writers(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) COMMENT='일정 관리 테이블';
 -- 작성자 데이터가 사라지면 작성자가 작성한 게시글들도 같이 삭제
