@@ -2,14 +2,14 @@ package com.example.schedule.dto;
 
 import java.util.List;
 
-public class PageResponseDto{
-    private List<ScheduleResponseDto> content;
+public class PageResponseDto<T> {
+    private List<T> content;
     private int currentPage;
     private int pageSize;
     private int totalPages;
     private long totalElements;
 
-    public PageResponseDto(List<ScheduleResponseDto> content, int currentPage, int pageSize, long totalElements) {
+    public PageResponseDto(List<T> content, int currentPage, int pageSize, long totalElements) {
         this.content = content;
         this.currentPage = currentPage;
         this.pageSize = pageSize;
@@ -17,7 +17,7 @@ public class PageResponseDto{
         this.totalPages = (int) Math.ceil((double) totalElements / pageSize);
     }
 
-    public List<ScheduleResponseDto> getContent() {
+    public List<T> getContent() {
         return content;
     }
 

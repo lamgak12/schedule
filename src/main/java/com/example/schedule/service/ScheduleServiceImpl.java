@@ -31,12 +31,12 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public PageResponseDto findAllSchedules(int page, int size) {
+    public PageResponseDto<ScheduleResponseDto> findAllSchedules(int page, int size) {
         int offset = page * size;
         List<ScheduleResponseDto> schedules = scheduleRepository.findAllSchedules(size, offset);
         long totalElements = scheduleRepository.countSchedules();
 
-        return new PageResponseDto(schedules, page, size, totalElements);
+        return new PageResponseDto<>(schedules, page, size, totalElements);
     }
 
     @Override

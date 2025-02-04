@@ -26,10 +26,10 @@ public class ScheduleController {
 
     // 전체 일정 조회
     @GetMapping
-    public ResponseEntity<PageResponseDto> findAllSchedules(
+    public ResponseEntity<PageResponseDto<ScheduleResponseDto>> findAllSchedules(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size){
-        PageResponseDto response = scheduleService.findAllSchedules(page, size);
+        PageResponseDto<ScheduleResponseDto> response = scheduleService.findAllSchedules(page, size);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
