@@ -155,9 +155,7 @@ DATA_BASE_USER_PASSWORD=${your DB_PASSWORD}
     <summary>일정 생성</summary>
       <details>
           <summary>성공</summary>
-        
-        ![일정생성 성공](https://github.com/user-attachments/assets/f2c068d3-87c5-49f8-9c5f-6ad0a91d6896)
-        
+        <img src="https://github.com/user-attachments/assets/f2c068d3-87c5-49f8-9c5f-6ad0a91d6896">
       </details>
       <details>
           <summary>실패(400)</summary>
