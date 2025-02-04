@@ -87,7 +87,8 @@
 
 
 ## ERD 다이어그램
-![ERD.PNG](images%2FERD.PNG)
+![ERD](https://github.com/user-attachments/assets/5c417a0b-2197-42be-b924-2d956f35ff40)
+
 
 ## 프로젝트 구조
 <details>
@@ -154,6 +155,7 @@ DATA_BASE_USER_PASSWORD=${your DB_PASSWORD}
     <summary>일정 생성</summary>
       <details>
           <summary>성공</summary>
+        ![일정생성 성공](https://github.com/user-attachments/assets/f2c068d3-87c5-49f8-9c5f-6ad0a91d6896)
       </details>
       <details>
           <summary>실패(400)</summary>
