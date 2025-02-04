@@ -150,6 +150,8 @@ DATA_BASE_URL=${your DB_URL}
 DATA_BASE_USER_NAME=${your DB_ID}
 DATA_BASE_USER_PASSWORD=${your DB_PASSWORD}
 ```
+<img src="">
+
 ## 구현 결과
 <details>
     <summary>일정 생성</summary>
@@ -158,46 +160,62 @@ DATA_BASE_USER_PASSWORD=${your DB_PASSWORD}
         <img src="https://github.com/user-attachments/assets/f2c068d3-87c5-49f8-9c5f-6ad0a91d6896">
       </details>
       <details>
-          <summary>실패(400)</summary>
+          <summary>실패(400)</summary>      
+        <img src="![일정 생성 실패1](https://github.com/user-attachments/assets/fe1f9ffa-afa4-494e-b0d1-4157a500eda3)">
+        <img src="![일정 생성 실패2](https://github.com/user-attachments/assets/f2acc382-a1f4-4039-9af3-9f4e75692643)">
+        <img src="![일정 생성 실패3](https://github.com/user-attachments/assets/6d890af5-c75b-4446-83ee-8633a579dc3b)">
       </details>
       <details>
           <summary>실패(404)</summary>
+        <img src="![일정 생성 실패4](https://github.com/user-attachments/assets/80e39d36-99ef-47d0-9292-78a4c99208a2)">
       </details>
 </details>
 <details>
     <summary>일정 조회(전체)</summary>
+  <img src="![일정 전체 조회 성공](https://github.com/user-attachments/assets/4435acab-807a-4395-bd14-7de055b897fd)">
+  <img src="![일정 전체 조회(빈페이지)](https://github.com/user-attachments/assets/ddd6c64e-411d-496c-a4ec-c3d718cad695)">
 </details>
 <details>
     <summary>일정 조회(단일)</summary>
-<details>
+      <details>
           <summary>성공</summary>
+        <img src="![일정 단일 조회 성공](https://github.com/user-attachments/assets/bcc03ca6-bf65-41f2-8895-07d3dfd89ab6)">
       </details>
       <details>
           <summary>실패(404)</summary>
+        <img src="![일정 단일 조회 실패](https://github.com/user-attachments/assets/1cb4eb2e-007e-46c8-b6b1-5eb2dcd734d0)">
       </details>
 </details>
 <details>
     <summary>일정 수정</summary>
       <details>
           <summary>성공</summary>
+        <img src="![일정 수정 성공](https://github.com/user-attachments/assets/47de4f3c-8fd6-43b4-8597-06e6dddc1d19)">
       </details>
       <details>
           <summary>실패(400)</summary>
+        <img src="![일정 수정 실패(내용미입력)](https://github.com/user-attachments/assets/8fe31f93-2917-461d-90b8-258f14e526d4)">
+        <img src="![일정 수정 실패(비번미입력)](https://github.com/user-attachments/assets/c15d864d-9d57-4834-b69f-71228e1fa7dd)">
+        <img src="![일정 수정 실패(작성자미입력)](https://github.com/user-attachments/assets/39bf07b2-eb8e-4744-a44a-4c58346f1734)">
       </details>
       <details>
           <summary>실패(401)</summary>
+        <img src="![일정 수정 실패(비번틀림)](https://github.com/user-attachments/assets/7cfb17d5-887c-492f-b769-b95def9b3cfb)">
       </details>
 </details>
 <details>
     <summary>일정 삭제</summary>
     <details>
           <summary>성공</summary>
+      <img src="![일정 삭제 성공](https://github.com/user-attachments/assets/d2dac587-c5f2-48cf-a78f-7c4416c216b3)">
       </details>
       <details>
           <summary>실패(401)</summary>
+        <img src="![일정 삭제 실패1](https://github.com/user-attachments/assets/d415e18d-65f9-4d8f-9e9a-74b134c6e2c3)">
       </details>
       <details>
           <summary>실패(404)</summary>
+        <img src="![일정 삭제 실패2](https://github.com/user-attachments/assets/ad5ece89-fccb-43d3-af18-cd2cff75670f)">
       </details>
 </details>
 <details>
