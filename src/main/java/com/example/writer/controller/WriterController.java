@@ -5,6 +5,7 @@ import com.example.writer.dto.WriterRequestDto;
 import com.example.writer.dto.WriterResponseDto;
 import com.example.writer.dto.WriterWithSchedulesResponseDto;
 import com.example.writer.service.WriterService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class WriterController {
 
     // 작성자 생성
     @PostMapping
-    public ResponseEntity<WriterResponseDto> createWriter(@RequestBody WriterRequestDto requestDto){
+    public ResponseEntity<WriterResponseDto> createWriter(@Valid @RequestBody WriterRequestDto requestDto){
         return new ResponseEntity<>(writerService.saveWriter(requestDto), HttpStatus.CREATED); // update + insert = upsert로 동작해야 완전함..
     }
 
@@ -39,7 +40,7 @@ public class WriterController {
 
     // 작성자 삭제(id)
     @DeleteMapping("/{id}")
-    public ResponseEntity<ScheduleResponseDto> deleteSchedule(@PathVariable Long id){
+    public ResponseEntity<Void> deleteSchedule(@PathVariable Long id){
         writerService.deleteWriter(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
